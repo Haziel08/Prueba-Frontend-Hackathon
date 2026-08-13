@@ -15,7 +15,7 @@ services:
   - type: web
     name: flowfi-ml-service
     runtime: docker
-    dockerContext: ./fastapi-service
+    dockerContext: G9-LATAM-Team-26/fastapi-service
     dockerfilePath: ./fastapi-service/Dockerfile
     plan: free
     healthCheckPath: /
@@ -31,7 +31,7 @@ services:
   - type: web
     name: flowfi-backend-java
     runtime: docker
-    dockerContext: ./2-backend-java
+    dockerContext: G9-LATAM-Team-26/2-backend-java
     dockerfilePath: ./2-backend-java/Dockerfile
     plan: free
     healthCheckPath: /
