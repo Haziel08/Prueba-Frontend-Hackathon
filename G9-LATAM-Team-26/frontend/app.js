@@ -34,14 +34,9 @@
 const IS_LOCAL = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
 const CONFIG = {
-  // En local (abriendo el HTML o corriendo un servidor estático en tu máquina)
-  // usa automáticamente el backend Java corriendo en localhost:8080.
-  // Cuando el backend esté desplegado, reemplaza la URL de PROD_API_URL
-  // por la real (ej. https://financeai-backend.onrender.com/analisis-financiero)
-  // y ya queda funcionando también en producción sin tocar nada más.
-  USE_MOCK: false, // <-- ponlo en true si quieres forzar el modo demo sin backend
-  PROD_API_URL: "https://flowfi-backend-java.onrender.com",
-  LOCAL_API_URL: "https://flowfi-frontend.onrender.com",
+  USE_MOCK: false,
+  PROD_API_URL: "https://flowfi-backend-java.onrender.com/analisis-financiero",
+  LOCAL_API_URL: "http://localhost:8080/analisis-financiero",
   get API_URL() {
     return IS_LOCAL ? this.LOCAL_API_URL : this.PROD_API_URL;
   },
