@@ -40,8 +40,8 @@ const CONFIG = {
   // por la real (ej. https://financeai-backend.onrender.com/analisis-financiero)
   // y ya queda funcionando también en producción sin tocar nada más.
   USE_MOCK: false, // <-- ponlo en true si quieres forzar el modo demo sin backend
-  PROD_API_URL: "https://TU-BACKEND-AQUI.com/analisis-financiero",
-  LOCAL_API_URL: "http://localhost:8080/analisis-financiero",
+  PROD_API_URL: "https://flowfi-backend-java.onrender.com",
+  LOCAL_API_URL: "https://flowfi-frontend.onrender.com",
   get API_URL() {
     return IS_LOCAL ? this.LOCAL_API_URL : this.PROD_API_URL;
   },
