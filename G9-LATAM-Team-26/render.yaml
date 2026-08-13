@@ -16,7 +16,7 @@ services:
     name: flowfi-ml-service
     runtime: docker
     dockerContext: G9-LATAM-Team-26/fastapi-service
-    dockerfilePath: ./fastapi-service/Dockerfile
+    dockerfilePath: G9-LATAM-Team-26/fastapi-service/Dockerfile
     plan: free
     healthCheckPath: /
     envVars:
@@ -32,7 +32,7 @@ services:
     name: flowfi-backend-java
     runtime: docker
     dockerContext: G9-LATAM-Team-26/2-backend-java
-    dockerfilePath: ./2-backend-java/Dockerfile
+    dockerfilePath: G9-LATAM-Team-26/2-backend-java/Dockerfile
     plan: free
     healthCheckPath: /
     envVars:
@@ -55,4 +55,4 @@ services:
   - type: web
     name: flowfi-frontend
     runtime: static
-    staticPublishPath: ./frontend
+    staticPublishPath: G9-LATAM-Team-26/frontend
