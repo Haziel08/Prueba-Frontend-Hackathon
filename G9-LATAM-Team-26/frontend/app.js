@@ -192,7 +192,7 @@ function addTxRow(categoria = "", comercio = "", valor = "") {
       </select>
     </div>
     <div class="tx-row-bottom">
-      <input type="number" class="monto" placeholder="Monto" value="${valor}">
+      <input type="number" class="monto" placeholder="Monto" value="${valor}" min="0" step="0.01">
       <button type="button" class="tx-remove" title="Eliminar">✕</button>
     </div>
   `;
@@ -215,11 +215,8 @@ function addTxRow(categoria = "", comercio = "", valor = "") {
 
 document.getElementById("add-tx").addEventListener("click", () => addTxRow());
 
-// Filas de ejemplo al cargar
-[["Alimentación", "Supermercado", 850], ["Transporte", "Combustible", 600],
- ["Suscripciones", "Netflix", 219], ["Vivienda", "Renta", 6000],
- ["Deudas", "Pago TDC Banamex", 1200]]
-  .forEach(([cat, com, v]) => addTxRow(cat, com, v));
+// Fila vacía al cargar (sin datos de ejemplo)
+addTxRow();
 
 /* =========================================================
    MODAL: ABRIR / CERRAR
@@ -554,6 +551,14 @@ function actualizarDesdeStats() {
 /* =========================================================
    BOTÓN "ANALIZAR"
    ========================================================= */
+// Nueva función para dejar el formulario como nuevo
+function limpiarFormulario() {
+  document.getElementById("tx-list").innerHTML = ""; // Borra todas las filas actuales
+  addTxRow(); // Agrega una nueva fila en blanco
+  document.getElementById("ingreso").value = "15000"; // Restablece el valor por defecto si lo deseas
+  document.getElementById("ahorro").value = "Media";
+}
+
 async function ejecutarAnalisis(payload, { esModal } = {}) {
   const boton = document.getElementById("analizar-btn");
   if (esModal) {
@@ -569,6 +574,7 @@ async function ejecutarAnalisis(payload, { esModal } = {}) {
 
     if (esModal) {
       closeModal();
+      limpiarFormulario(); // <--- Aquí limpiamos el formulario tras el éxito
       goToScreen("inicio");
     }
   } catch (err) {
@@ -608,6 +614,23 @@ document.getElementById("analizar-btn").addEventListener("click", () => {
   ejecutarAnalisis(payload, { esModal: true });
 });
 
-// Al cargar la página, mostramos el dashboard ya lleno con los datos de
-// ejemplo (mismo criterio que el mockup: "todo visible de entrada").
-ejecutarAnalisis(leerPayloadDelFormulario());
+
+
+
+function bloquearCaracteresInvalidos(e) {
+  if (['-', '+', 'e', 'E'].includes(e.key)) {
+    e.preventDefault();
+  }
+}
+
+// Para los inputs que ya existen en el HTML (ej. Ingreso mensual)
+document.querySelectorAll('input[type="number"]').forEach(input => {
+  input.addEventListener("keypress", bloquearCaracteresInvalidos);
+});
+
+// Para los inputs que se crean dinámicamente en el formulario
+document.getElementById("tx-list").addEventListener("keypress", (e) => {
+  if (e.target.classList.contains("monto")) {
+    bloquearCaracteresInvalidos(e);
+  }
+});
